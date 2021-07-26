@@ -5,7 +5,7 @@
     <!-- 其他配置省略-->
     <!-- 系统日志输出 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${APP_Name}/boss.log</file>
+        <file>${LOG_PATH}/${APP_Name}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 按天回滚 daily -->
             <fileNamePattern>${LOG_PATH}/${APP_Name}.%d{yyyy-MM-dd}.log</fileNamePattern>

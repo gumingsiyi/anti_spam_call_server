@@ -11,6 +11,7 @@ import com.gu.antiSpamCall.service.UserService;
 import com.gu.antiSpamCall.util.Result;
 import com.gu.antiSpamCall.util.ResultCodeEnum;
 import com.gu.antiSpamCall.util.TokenUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,6 +25,7 @@ import java.lang.reflect.Method;
 /**
  * 登录验证拦截器
  */
+@Slf4j
 public class AuthenticationInterceptor implements HandlerInterceptor {
     @Resource
     UserService userService;
@@ -40,7 +42,6 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getHeader("token");
         // 如果不是映射到方法直接通过
         if(!(handler instanceof HandlerMethod)){
             return true;
@@ -56,31 +57,40 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             }
         }
         //进行token验证
+        String token = request.getHeader("token");
+        log.info("开始验证token.");
         if (token == null) {
             setErrorResponseMsg(response, "not logged error");
+            log.info("token未找到，用户未登录.");
             return false;
         }
         String username;
         try {
             username = JWT.decode(token).getClaim("username").asString();
+            log.info(String.format("用户 [%s] 的token.", username));
         } catch (JWTDecodeException e) {
+            log.error("token 已损坏.");
             setErrorResponseMsg(response, "token error");
             return false;
         }
-
+        log.info(String.format("数据库查询用户 [%s] 的信息.", username));
         AdminUser user = userService.queryUserByName(username);
         if (user == null) {
+            log.error(String.format("用户 [%s] 的信息数据库未找到.", username));
             setErrorResponseMsg(response, "token error");
             return false;
         }
         try {
             if (TokenUtil.VerifyByJWT(token, user.getPassword())) {
+                log.info(String.format("用户 [%s] token验证成功.", username));
                 return true;
             } else {
+                log.error(String.format("用户 [%s] 的信息不匹配.", username));
                 setErrorResponseMsg(response, "token error");
                 return false;
             }
         } catch (Exception e) {
+            log.error(String.format("用户 [%s] 的信息不匹配.", username));
             setErrorResponseMsg(response, "token error");
             return false;
         }
