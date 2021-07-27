@@ -8,10 +8,7 @@ import com.gu.antiSpamCall.util.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -44,6 +41,13 @@ public class HelloController {
     @GetMapping("/tokenTest")
     public String tokenTest() {
         Result<Object> res = Result.success("token有效");
+        return JSON.toJSONString(res);
+    }
+
+    @ApiOperation(value = "测试带参数的get请求")
+    @GetMapping("/getTest")
+    public String getTest(@RequestParam String s) {
+        Result<Object> res = Result.success(s);
         return JSON.toJSONString(res);
     }
 }
