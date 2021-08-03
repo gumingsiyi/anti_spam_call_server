@@ -82,7 +82,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
         try {
             if (TokenUtil.VerifyByJWT(token, user.getPassword())) {
-                log.info(String.format("用户 [%s] token验证成功.", username));
+                String requestURI = request.getRequestURI();
+                log.info(String.format("用户 [%s] token验证成功, 访问资源 [%s].", username, requestURI));
                 return true;
             } else {
                 log.error(String.format("用户 [%s] 的信息不匹配.", username));
