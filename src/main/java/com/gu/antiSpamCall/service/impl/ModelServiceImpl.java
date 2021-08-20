@@ -1,19 +1,26 @@
 package com.gu.antiSpamCall.service.impl;
 
+import com.gu.antiSpamCall.dao.CallDao;
 import com.gu.antiSpamCall.dao.ConfigDao;
 import com.gu.antiSpamCall.dto.response.SpamCallModelResponse;
+import com.gu.antiSpamCall.model.CallRecord;
 import com.gu.antiSpamCall.model.SpamCallModelConfig;
-import com.gu.antiSpamCall.service.ConfigService;
+import com.gu.antiSpamCall.service.ModelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Slf4j
 @Service
-public class ConfigServiceImpl implements ConfigService {
+public class ModelServiceImpl implements ModelService {
     @Resource
     ConfigDao configDao;
+
+    @Resource
+    CallDao callDao;
 
     @Override
     public SpamCallModelResponse getConfig(String name) {
@@ -34,5 +41,13 @@ public class ConfigServiceImpl implements ConfigService {
             log.error(e.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public long queryCallCountToday(String from, String to) {
+        Date now = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        CallRecord record = new CallRecord(from, to, format.format(now), -1);
+        return  callDao.phoneCallCountByTime(record);
     }
 }

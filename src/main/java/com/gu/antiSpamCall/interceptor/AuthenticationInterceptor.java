@@ -76,14 +76,14 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         log.info(String.format("数据库查询用户 [%s] 的信息.", username));
         AdminUser user = userService.queryUserByName(username);
         if (user == null) {
-            log.error(String.format("用户 [%s] 的信息数据库未找到.", username));
+            log.error(String.format("管理员 [%s] 的信息数据库未找到.", username));
             setErrorResponseMsg(response, "token error");
             return false;
         }
         try {
             if (TokenUtil.VerifyByJWT(token, user.getPassword())) {
                 String requestURI = request.getRequestURI();
-                log.info(String.format("用户 [%s] token验证成功, 访问资源 [%s].", username, requestURI));
+                log.info(String.format("管理员 [%s] token验证成功, 访问资源 [%s].", username, requestURI));
                 return true;
             } else {
                 log.error(String.format("用户 [%s] 的信息不匹配.", username));
