@@ -1,4 +1,4 @@
-package com.gu.antiSpamCall.util;
+package com.gu.antiSpamCall.util.token;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

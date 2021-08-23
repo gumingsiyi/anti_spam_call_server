@@ -4,7 +4,7 @@ import com.gu.antiSpamCall.dto.request.BaseModelUpdateRequest;
 import com.gu.antiSpamCall.dto.response.ModelUpdateResponse;
 import com.gu.antiSpamCall.dto.response.SpamCallModelResponse;
 import com.gu.antiSpamCall.service.ModelService;
-import com.gu.antiSpamCall.util.Result;
+import com.gu.antiSpamCall.util.result.Result;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

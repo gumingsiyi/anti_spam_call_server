@@ -1,4 +1,4 @@
-package com.gu.antiSpamCall.util;
+package com.gu.antiSpamCall.util.result;
 
 @SuppressWarnings("unused")
 public enum ResultCodeEnum {

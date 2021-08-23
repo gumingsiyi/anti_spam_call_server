@@ -1,4 +1,4 @@
-package com.gu.antiSpamCall.util;
+package com.gu.antiSpamCall.util.result;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import io.swagger.annotations.ApiModelProperty;

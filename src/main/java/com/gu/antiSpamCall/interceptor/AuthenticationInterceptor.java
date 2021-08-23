@@ -1,16 +1,14 @@
 package com.gu.antiSpamCall.interceptor;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.gu.antiSpamCall.annotation.PassToken;
 import com.gu.antiSpamCall.model.AdminUser;
 import com.gu.antiSpamCall.service.UserService;
-import com.gu.antiSpamCall.util.Result;
-import com.gu.antiSpamCall.util.ResultCodeEnum;
-import com.gu.antiSpamCall.util.TokenUtil;
+import com.gu.antiSpamCall.util.result.Result;
+import com.gu.antiSpamCall.util.result.ResultCodeEnum;
+import com.gu.antiSpamCall.util.token.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;

@@ -4,7 +4,7 @@ import com.gu.antiSpamCall.annotation.PassToken;
 import com.gu.antiSpamCall.dto.request.LoginRequest;
 import com.gu.antiSpamCall.dto.response.LoginResponse;
 import com.gu.antiSpamCall.service.LoginService;
-import com.gu.antiSpamCall.util.Result;
+import com.gu.antiSpamCall.util.result.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -5,7 +5,7 @@ import com.gu.antiSpamCall.dto.response.LoginResponse;
 import com.gu.antiSpamCall.model.AdminUser;
 import com.gu.antiSpamCall.service.LoginService;
 import com.gu.antiSpamCall.service.UserService;
-import com.gu.antiSpamCall.util.TokenUtil;
+import com.gu.antiSpamCall.util.token.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

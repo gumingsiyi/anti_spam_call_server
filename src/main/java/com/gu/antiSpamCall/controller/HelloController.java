@@ -1,10 +1,9 @@
 package com.gu.antiSpamCall.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.gu.antiSpamCall.annotation.PassToken;
 import com.gu.antiSpamCall.dao.UserDao;
 import com.gu.antiSpamCall.model.AdminUser;
-import com.gu.antiSpamCall.util.Result;
+import com.gu.antiSpamCall.util.result.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
