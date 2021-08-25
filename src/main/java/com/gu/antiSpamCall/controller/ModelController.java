@@ -34,7 +34,7 @@ public class ModelController {
     }
 
     @GetMapping("/getCallCountToday")
-    public Result<Long> getCallCountToday(String from, String to) {
+    public Result<Long> getCallCountToday(@RequestParam String from, @RequestParam String to) {
         return Result.success(modelService.queryCallCountToday(from, to));
     }
 }

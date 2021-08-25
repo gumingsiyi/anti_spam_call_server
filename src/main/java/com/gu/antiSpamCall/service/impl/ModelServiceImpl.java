@@ -47,7 +47,10 @@ public class ModelServiceImpl implements ModelService {
     public long queryCallCountToday(String from, String to) {
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        CallRecord record = new CallRecord(from, to, format.format(now), -1);
-        return  callDao.phoneCallCountByTime(record);
+        String time = format.format(now);
+        CallRecord record = new CallRecord(null, from, to, time, -1);
+        long res = callDao.phoneCallCountByTime(record);
+        //log.info(String.format("[%s] [%s] -> [%s] 拨打 [%d] 次.", time, from, to, res));
+        return  res;
     }
 }

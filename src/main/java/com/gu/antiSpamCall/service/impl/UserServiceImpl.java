@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     UserDao userDao;
 
-    @Resource
+    @Resource(name = "BWListDao")
     BWListDao bwListDao;
 
     @Override

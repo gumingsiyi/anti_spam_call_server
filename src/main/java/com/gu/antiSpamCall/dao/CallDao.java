@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @Component
@@ -43,5 +44,10 @@ public class CallDao {
         } else {
             return 0;
         }
+    }
+
+    public void clear() {
+        Query query = new Query(Criteria.where("from").is("15700083072"));
+        List<CallRecord> list = mongoTemplate.findAllAndRemove(query, CallRecord.class);
     }
 }

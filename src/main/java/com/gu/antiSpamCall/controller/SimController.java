@@ -19,4 +19,10 @@ public class SimController {
         String res = simService.simCall("15700083072", "18996478090");
         return Result.success(res);
     }
+
+    @GetMapping("/reset")
+    Result<Boolean> reset() {
+        simService.clearCallRecord();
+        return Result.success(Boolean.TRUE);
+    }
 }

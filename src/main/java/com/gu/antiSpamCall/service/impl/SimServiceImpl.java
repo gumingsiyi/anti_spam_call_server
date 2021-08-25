@@ -28,11 +28,14 @@ public class SimServiceImpl implements SimService {
     @Resource
     UserService userService;
 
+    @Resource
+    BWListDao bwListDao;
+
     @Override
     public String simCall(String from, String to) {
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        CallRecord record = new CallRecord(from, to, format.format(now), 1);
+        CallRecord record = new CallRecord(null, from, to, format.format(now), 1);
         callDao.save(record);
 
         //检测是否在白名单中
@@ -62,4 +65,13 @@ public class SimServiceImpl implements SimService {
         }
         return "拨打成功。";
     }
+
+    @Override
+    public void clearCallRecord() {
+        callDao.clear();
+        bwListDao.clearList("black", "18996478090");
+        log.info("通话记录, 黑名单已重置");
+    }
+
+
 }
