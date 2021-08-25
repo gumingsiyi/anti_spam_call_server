@@ -47,7 +47,7 @@ public class CallDao {
     }
 
     public void clear() {
-        Query query = new Query(Criteria.where("from").is("15700083072"));
-        List<CallRecord> list = mongoTemplate.findAllAndRemove(query, CallRecord.class);
+        Query query = new Query(new Criteria());
+        mongoTemplate.findAllAndRemove(query, CallRecord.class);
     }
 }
