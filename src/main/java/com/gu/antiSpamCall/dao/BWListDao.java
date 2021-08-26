@@ -46,6 +46,28 @@ public class BWListDao {
         }
     }
 
+    /**
+     * 返回黑名单或者白名单
+     * @param type black or white
+     * @param num 该号码的黑白名单
+     * @return 黑白名单信息
+     */
+    public List<String> getList(String type, String num) {
+        Query query = new Query(Criteria.where("mobNum").is(num));
+        BWListModel bwListModel = mongoTemplate.findOne(query, BWListModel.class);
+        if (bwListModel != null) {
+            List<String> list;
+            if ("black".equals(type)) {
+                list = bwListModel.getBlackList();
+            } else {
+                list = bwListModel.getWhiteList();
+            }
+            return list;
+        } else {
+            throw new NullPointerException("该号码未注册黑白名单...");
+        }
+    }
+
     public void clearList(String type, String mobNum) {
         Query query = new Query(Criteria.where("mobNum").is(mobNum));
         List<String> list = new ArrayList<>();

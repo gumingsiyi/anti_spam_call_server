@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -71,6 +72,16 @@ public class SimServiceImpl implements SimService {
         callDao.clear();
         bwListDao.clearList("black", "18996478090");
         log.info("通话记录, 黑名单已重置");
+    }
+
+    @Override
+    public List<String> getBlackList(String num) {
+        return bwListDao.getList("black", num);
+    }
+
+    @Override
+    public List<String> getWhiteList(String num) {
+        return bwListDao.getList("white", num);
     }
 
 
