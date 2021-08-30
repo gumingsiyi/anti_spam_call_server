@@ -35,9 +35,4 @@ public class ModelController {
         response.setResult(result);
         return Result.success(response);
     }
-
-    @GetMapping("/getCallCountToday")
-    public Result<Long> getCallCountToday(@RequestParam String from, @RequestParam String to) {
-        return Result.success(modelService.queryCallCountToday(from, to));
-    }
 }

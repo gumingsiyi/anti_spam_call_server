@@ -1,21 +1,34 @@
 package com.gu.antiSpamCall.service.impl;
 
+import com.gu.antiSpamCall.dao.BWListDao;
+import com.gu.antiSpamCall.dao.CallDao;
 import com.gu.antiSpamCall.dto.request.LoginRequest;
+import com.gu.antiSpamCall.dto.response.CallInfoResponse;
 import com.gu.antiSpamCall.dto.response.LoginResponse;
 import com.gu.antiSpamCall.model.AdminUser;
-import com.gu.antiSpamCall.service.LoginService;
+import com.gu.antiSpamCall.model.CallRecord;
+import com.gu.antiSpamCall.service.AdminService;
 import com.gu.antiSpamCall.service.UserService;
 import com.gu.antiSpamCall.util.token.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @Service
-public class LoginServiceImpl implements LoginService {
+public class AdminServiceImpl implements AdminService {
     @Resource
     UserService userService;
+
+    @Resource
+    BWListDao bwListDao;
+
+    @Resource
+    CallDao callDao;
 
     @Override
     public LoginResponse adminLogin(LoginRequest request) {
@@ -34,5 +47,24 @@ public class LoginServiceImpl implements LoginService {
             response.setMessage("登录成功。");
         }
         return response;
+    }
+
+    @Override
+    public List<String> getBlackList(String num) {
+        return bwListDao.getList("black", num);
+    }
+
+    @Override
+    public List<String> getWhiteList(String num) {
+        return bwListDao.getList("white", num);
+    }
+
+    @Override
+    public CallInfoResponse queryCallInfo(String from, String to) {
+        Date now = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String time = format.format(now);
+        CallRecord record = new CallRecord(null, from, to, time, -1, -1);
+        return callDao.getCallInfo(record);
     }
 }

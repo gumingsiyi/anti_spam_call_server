@@ -50,6 +50,7 @@ public class SimServiceImpl implements SimService {
         Boolean isInBlackList = userService.verifyInBlackList(from, to);
         if (isInBlackList) {
             log.info(String.format("模拟拨打(拦截): [%s] -> [%s].", from, to));
+            callDao.anti(record);
             return "号码被黑名单拦截。";
         }
 
@@ -57,7 +58,8 @@ public class SimServiceImpl implements SimService {
         long callCountToday = callDao.phoneCallCountByTime(record);
         SpamCallModelConfig baseConfig = configDao.findConfigByName("base_config");
 
-        SpamEvaluatorContext evaluatorContext = new SpamEvaluatorContext(new BaseModelEvaluator(baseConfig, callCountToday));
+        SpamEvaluatorContext evaluatorContext =
+                new SpamEvaluatorContext(new BaseModelEvaluator(baseConfig, callCountToday));
         log.info(String.format("模拟拨打: [%s] -> [%s], 已拨打 [%d] 次, 模型限制 [%d] 次.", from, to, callCountToday, baseConfig.getCallFromSameNumToday()));
         if (!evaluatorContext.getResult()) {
             //超标 模拟加入黑名单
@@ -73,16 +75,4 @@ public class SimServiceImpl implements SimService {
         bwListDao.clearList("black", "18996478090");
         log.info("通话记录, 黑名单已重置");
     }
-
-    @Override
-    public List<String> getBlackList(String num) {
-        return bwListDao.getList("black", num);
-    }
-
-    @Override
-    public List<String> getWhiteList(String num) {
-        return bwListDao.getList("white", num);
-    }
-
-
 }
