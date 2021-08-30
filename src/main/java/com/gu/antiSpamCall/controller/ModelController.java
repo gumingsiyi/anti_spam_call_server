@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+/**
+ * 获取、更新防骚扰模型相关参数
+ */
 @Slf4j
 @Api(value = "防骚扰模型controller")
 @RestController

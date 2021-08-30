@@ -48,7 +48,7 @@ public class ModelServiceImpl implements ModelService {
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String time = format.format(now);
-        CallRecord record = new CallRecord(null, from, to, time, -1);
+        CallRecord record = new CallRecord(null, from, to, time, -1, -1);
         long res = callDao.phoneCallCountByTime(record);
         //log.info(String.format("[%s] [%s] -> [%s] 拨打 [%d] 次.", time, from, to, res));
         return  res;

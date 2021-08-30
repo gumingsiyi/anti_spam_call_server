@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
+/**
+ * 判断模型的DAO
+ */
 @Component
 public class ConfigDao {
     @Resource

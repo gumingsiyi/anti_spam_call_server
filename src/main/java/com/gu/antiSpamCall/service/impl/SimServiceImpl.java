@@ -36,7 +36,7 @@ public class SimServiceImpl implements SimService {
     public String simCall(String from, String to) {
         Date now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        CallRecord record = new CallRecord(null, from, to, format.format(now), 1);
+        CallRecord record = new CallRecord(null, from, to, format.format(now), 1, 0);
         callDao.save(record);
 
         //检测是否在白名单中
@@ -60,7 +60,7 @@ public class SimServiceImpl implements SimService {
         SpamEvaluatorContext evaluatorContext = new SpamEvaluatorContext(new BaseModelEvaluator(baseConfig, callCountToday));
         log.info(String.format("模拟拨打: [%s] -> [%s], 已拨打 [%d] 次, 模型限制 [%d] 次.", from, to, callCountToday, baseConfig.getCallFromSameNumToday()));
         if (!evaluatorContext.getResult()) {
-            //超标
+            //超标 模拟加入黑名单
             userService.blackListAdd(from, to);
             log.info(String.format("模拟拨打: [%s] -> [%s], 拨打次数超标，已被加入黑名单.", from, to));
         }

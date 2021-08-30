@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
-
+/**
+ * 通话记录的DAO
+ */
 @Component
 public class CallDao {
     @Resource

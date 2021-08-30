@@ -1,7 +1,7 @@
 package com.gu.antiSpamCall.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.gu.antiSpamCall.dao.UserDao;
+import com.gu.antiSpamCall.dao.AdminUserDao;
 import com.gu.antiSpamCall.model.AdminUser;
 import com.gu.antiSpamCall.util.result.Result;
 import io.swagger.annotations.Api;
@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 public class HelloController {
 
     @Resource
-    private UserDao userDao;
+    private AdminUserDao adminUserDao;
 
     @ApiOperation(value = "测试hello world")
     @GetMapping("/hello")
@@ -30,7 +30,7 @@ public class HelloController {
     @ApiOperation(value = "测试用户名查询")
     @PostMapping("/findOneTest")
     public AdminUser findOne(String name) {
-        AdminUser res = userDao.findUserByName(name);
+        AdminUser res = adminUserDao.findUserByName(name);
         System.out.println("test " + res);
 
         return res;

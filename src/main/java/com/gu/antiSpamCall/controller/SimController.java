@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * 模拟拨打等动作的相关功能
+ */
 @RequestMapping("/simulator")
 @RestController
 public class SimController {

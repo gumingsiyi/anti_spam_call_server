@@ -8,9 +8,11 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
-
+/**
+ * 用户的DAO
+ */
 @Component
-public class UserDao {
+public class AdminUserDao {
     @Resource
     private MongoTemplate mongoTemplate;
 

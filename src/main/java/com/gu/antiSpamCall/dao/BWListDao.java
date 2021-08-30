@@ -11,6 +11,9 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 黑白名单的DAO
+ */
 @Component
 public class BWListDao {
     @Resource

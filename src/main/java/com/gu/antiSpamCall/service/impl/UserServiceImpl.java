@@ -1,11 +1,10 @@
 package com.gu.antiSpamCall.service.impl;
 
 import com.gu.antiSpamCall.dao.BWListDao;
-import com.gu.antiSpamCall.dao.UserDao;
+import com.gu.antiSpamCall.dao.AdminUserDao;
 import com.gu.antiSpamCall.model.AdminUser;
 import com.gu.antiSpamCall.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,19 +13,19 @@ import javax.annotation.Resource;
 @Service
 public class UserServiceImpl implements UserService {
     @Resource
-    UserDao userDao;
+    AdminUserDao adminUserDao;
 
     @Resource(name = "BWListDao")
     BWListDao bwListDao;
 
     @Override
     public AdminUser queryUserByNameAndPwd(String username, String password) {
-        return userDao.findByNameAndPwd(username, password);
+        return adminUserDao.findByNameAndPwd(username, password);
     }
 
     @Override
     public AdminUser queryUserByName(String username) {
-        return userDao.findUserByName(username);
+        return adminUserDao.findUserByName(username);
     }
 
     @Override

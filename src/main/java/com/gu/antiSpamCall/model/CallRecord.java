@@ -18,4 +18,5 @@ public class CallRecord {
     String to;      //被叫
     String time;    //拨打时间
     long count;     //当天拨打次数
+    long anti;      //当天拦截次数
 }
