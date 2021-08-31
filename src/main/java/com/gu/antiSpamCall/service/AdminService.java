@@ -11,4 +11,8 @@ public interface AdminService {
     List<String> getBlackList(String num);
     List<String> getWhiteList(String num);
     CallInfoResponse queryCallInfo(String from, String to);
+    Boolean blackListAdd(String from, String to);
+    Boolean blackListRemove(String from, String to);
+    Boolean whiteListAdd(String from, String to);
+    Boolean whiteListRemove(String from, String to);
 }

@@ -37,6 +37,8 @@ public class BWListDao {
                 list = bwListModel.getWhiteList();
             }
             if ("add".equals(action)) {
+                bwListModel.getBlackList().remove(from);
+                bwListModel.getWhiteList().remove(from);
                 list = addUnique(list, from);
             } else {
                 list.remove(from);
@@ -67,18 +69,13 @@ public class BWListDao {
             }
             return list;
         } else {
-            throw new NullPointerException("该号码未注册黑白名单...");
+            throw new NullPointerException("该号码未注册...");
         }
     }
 
     public void clearList(String type, String mobNum) {
         Query query = new Query(Criteria.where("mobNum").is(mobNum));
         List<String> list = new ArrayList<>();
-        if ("black".equals(type)) {
-            list.add("10000");
-        } else {
-            list.add("10086");
-        }
         Update update = new Update();
         update.set(type + "List", list);
         mongoTemplate.updateFirst(query, update, BWListModel.class);
@@ -101,7 +98,7 @@ public class BWListDao {
                 return bwListModel.getWhiteList().contains(from);
             }
         } else {
-            throw new NullPointerException("该号码未注册黑白名单...");
+            throw new NullPointerException("该号码未注册...");
         }
     }
 

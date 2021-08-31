@@ -29,9 +29,6 @@ public class SimServiceImpl implements SimService {
     @Resource
     UserService userService;
 
-    @Resource
-    BWListDao bwListDao;
-
     @Override
     public String simCall(String from, String to) {
         Date now = new Date();
@@ -43,7 +40,7 @@ public class SimServiceImpl implements SimService {
         Boolean isInWhiteList = userService.verifyInWhiteList(from, to);
         if (isInWhiteList) {
             log.info(String.format("模拟拨打(白名单): [%s] -> [%s].", from, to));
-            return "拨打成功。";
+            return "拨打成功";
         }
 
         //检查是否在黑名单中
@@ -51,7 +48,7 @@ public class SimServiceImpl implements SimService {
         if (isInBlackList) {
             log.info(String.format("模拟拨打(拦截): [%s] -> [%s].", from, to));
             callDao.anti(record);
-            return "号码被黑名单拦截。";
+            return "号码被黑名单拦截";
         }
 
         //检测是否达到黑名单标准
@@ -66,13 +63,13 @@ public class SimServiceImpl implements SimService {
             userService.blackListAdd(from, to);
             log.info(String.format("模拟拨打: [%s] -> [%s], 拨打次数超标，已被加入黑名单.", from, to));
         }
-        return "拨打成功。";
+        return "拨打成功";
     }
 
     @Override
     public void clearCallRecord() {
         callDao.clear();
-        bwListDao.clearList("black", "18996478090");
-        log.info("通话记录, 黑名单已重置");
+        userService.blackListClear("18996478090");
+        userService.whiteListClear("18996478090");
     }
 }

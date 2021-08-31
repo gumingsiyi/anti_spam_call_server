@@ -42,4 +42,24 @@ public class AdminController {
     public Result<CallInfoResponse> getCallInfo(@RequestParam String from, @RequestParam String to) {
         return Result.success(adminService.queryCallInfo(from, to));
     }
+
+    @GetMapping("/blackAdd")
+    public Result<Boolean> blackAdd(@RequestParam String from, @RequestParam String to) {
+        return Result.success(adminService.blackListAdd(from, to));
+    }
+
+    @GetMapping("/blackRemove")
+    public Result<Boolean> blackRemove(@RequestParam String from, @RequestParam String to) {
+        return Result.success(adminService.blackListRemove(from, to));
+    }
+
+    @GetMapping("/whiteAdd")
+    public Result<Boolean> whiteAdd(@RequestParam String from, @RequestParam String to) {
+        return Result.success(adminService.whiteListAdd(from, to));
+    }
+
+    @GetMapping("/whiteRemove")
+    public Result<Boolean> whiteRemove(@RequestParam String from, @RequestParam String to) {
+        return Result.success(adminService.whiteListRemove(from, to));
+    }
 }

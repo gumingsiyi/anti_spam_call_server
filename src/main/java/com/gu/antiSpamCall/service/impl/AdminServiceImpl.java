@@ -67,4 +67,24 @@ public class AdminServiceImpl implements AdminService {
         CallRecord record = new CallRecord(null, from, to, time, -1, -1);
         return callDao.getCallInfo(record);
     }
+
+    @Override
+    public Boolean blackListAdd(String from, String to) {
+        return userService.blackListAdd(from, to);
+    }
+
+    @Override
+    public Boolean blackListRemove(String from, String to) {
+        return userService.blackListRemove(from, to);
+    }
+
+    @Override
+    public Boolean whiteListAdd(String from, String to) {
+        return userService.whiteListAdd(from, to);
+    }
+
+    @Override
+    public Boolean whiteListRemove(String from, String to) {
+        return userService.whiteListRemove(from, to);
+    }
 }

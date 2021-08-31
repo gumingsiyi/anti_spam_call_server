@@ -78,12 +78,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean blackListClear(String mobNum) {
-        return null;
+        try {
+            bwListDao.clearList("black", mobNum);
+            log.info(String.format("清空 [%s] 的黑名单", mobNum));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
     public Boolean whiteListClear(String mobNum) {
-        return null;
+        try {
+            bwListDao.clearList("white", mobNum);
+            log.info(String.format("清空 [%s] 的白名单", mobNum));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override

@@ -10,17 +10,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Slf4j
 @Service
 public class ModelServiceImpl implements ModelService {
     @Resource
     ConfigDao configDao;
-
-    @Resource
-    CallDao callDao;
 
     @Override
     public SpamCallModelResponse getConfig(String name) {
