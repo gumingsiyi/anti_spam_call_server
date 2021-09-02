@@ -1,20 +1,21 @@
 package com.gu.antiSpamCall.util.evaluator.strategy;
 
 import com.gu.antiSpamCall.model.SpamCallModelConfig;
-import com.gu.antiSpamCall.util.evaluator.strategy.SuperEvaluator;
 
-public class BaseModelEvaluator extends SuperEvaluator {
+public class BaseModelEvaluator extends SuperEvaluator<Boolean> {
 
     private final SpamCallModelConfig config;
-    private final long callCountToday;
+    private final long callFromSame;//当天外呼
 
-    public BaseModelEvaluator(SpamCallModelConfig config, long callCountToday) {
+    public BaseModelEvaluator(SpamCallModelConfig config,
+                              long callFromSame
+    ) {
         this.config = config;
-        this.callCountToday = callCountToday;
+        this.callFromSame = callFromSame;
     }
 
     @Override
-    public boolean evaluate() {
-        return config.getCallFromSameNumToday() >= callCountToday;
+    public Boolean evaluate() {
+        return config.getCallFromSameNumToday() > callFromSame;
     }
 }

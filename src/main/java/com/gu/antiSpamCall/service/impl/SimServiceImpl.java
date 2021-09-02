@@ -55,8 +55,8 @@ public class SimServiceImpl implements SimService {
         long callCountToday = callDao.phoneCallCountByTime(record);
         SpamCallModelConfig baseConfig = configDao.findConfigByName("base_config");
 
-        SpamEvaluatorContext evaluatorContext =
-                new SpamEvaluatorContext(new BaseModelEvaluator(baseConfig, callCountToday));
+        SpamEvaluatorContext<Boolean> evaluatorContext =
+                new SpamEvaluatorContext<>(new BaseModelEvaluator(baseConfig, callCountToday));
         log.info(String.format("模拟拨打: [%s] -> [%s], 已拨打 [%d] 次, 模型限制 [%d] 次.", from, to, callCountToday, baseConfig.getCallFromSameNumToday()));
         if (!evaluatorContext.getResult()) {
             //超标 模拟加入黑名单

@@ -30,22 +30,27 @@ public class BWListDao {
         Query query = new Query(Criteria.where("mobNum").is(to));
         BWListModel bwListModel = mongoTemplate.findOne(query, BWListModel.class);
         if (bwListModel != null) {
-            List<String> list;
-            if ("black".equals(type)) {
-                list = bwListModel.getBlackList();
-            } else {
-                list = bwListModel.getWhiteList();
-            }
+            List<String> blackList = bwListModel.getBlackList();
+            List<String> whiteList = bwListModel.getWhiteList();
             if ("add".equals(action)) {
-                bwListModel.getBlackList().remove(from);
-                bwListModel.getWhiteList().remove(from);
-                list = addUnique(list, from);
+                blackList.remove(from);
+                whiteList.remove(from);
+                if ("black".equals(type)) {
+                    blackList.add(from);
+                } else {
+                    whiteList.add(from);
+                }
             } else {
-                list.remove(from);
+                if ("black".equals(type)) {
+                    blackList.remove(from);
+                } else {
+                    whiteList.remove(from);
+                }
             }
             Update update = new Update();
-            update.set(type + "List", list);
-            mongoTemplate.updateFirst(query, update, BWListModel.class);
+            update.set("blackList", blackList);
+            update.set("whiteList", whiteList);
+           mongoTemplate.updateFirst(query, update, BWListModel.class);
         } else {
             throw new NullPointerException("该号码未注册黑白名单...");
         }
